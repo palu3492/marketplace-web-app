@@ -1,19 +1,31 @@
 You must have at least three controllers (Think python functions with @app.route decorators)
+- index with listings
+- listing page
+- user profiles
 
 You must have at least three views (Think templates)
+- make template for each controller
 
 Your app should have user session management. (anything to do with session management does not
 count for the above controller/view requirement or the below database requirements) I recommend you
 look at the Flask-Login plugin.
+- Login system page
 
 You must use records or SqlAlchemy and create a database with 3-4 tables. These tables should
 incorporate a one to many relationship in some way, or they may have a many to many relationship
 These tables do not include any tables that you create for user management.
+- Table for listings
+- Table for users and their listings
 
 You should incorporate the WTForms module into your application for processing form data. -- You can
 teach yourself this from the tutorial.
+- Forms for posting a listing
+- Maybe search form
 
 You must make use of at least 1 web API for some aspect of the project that you use in your web pages.
 Or you may define your own API for your app to use on one or more of the pages.
+- API endpoint for listings
+- Use Vue to display returned data
 
 Your program must use the bootstrap templates, and you must make an attempt to make it look aesthetically nice.
+- Use bootstrap
