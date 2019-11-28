@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table id="search-box2">
+<tbody>
+    <tr>
+        <td>
+            <h2>Word Finder Results</h2>
+            <p id="no-words">{{ nowords }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <main>
+                {% for word in wordlist: %}
+                    <div class="wordbox"><p>{{ word }}</p></div>
+                {% endfor %}
+                <div id="outer-def">
+                    <div id="inner-def">
+                        <p id="title"></p>
+                        <hr/>
+                        <p id="definition"></p>
+                        <hr/>
+                        <input type="submit" value="Close" onclick="closePopup()"/>
+                    </div>
+                </div>
+                <script>documentLoaded();</script>
+            </main>
+        </td>
+    </tr>
+</tbody>
+</table>
+{% endblock %}

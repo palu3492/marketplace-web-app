@@ -1,5 +1,5 @@
 You must have at least three controllers (Think python functions with @app.route decorators)
-- index with listings
+- index with listings (base.html, with all the page design)
 - listing page
 - user profiles
 

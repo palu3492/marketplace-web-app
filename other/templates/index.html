@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+    <table id="search-box1">
+    <tbody>
+        <tr>
+            <td>
+                <h2>Word Finder Search</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form action="/words" method="post">
+                    <div>
+                    {{ form.hidden_tag() }}
+                    {{ render_field(form.avail_letters) }}
+                    </div>
+                    <div>
+                    {{ render_field(form.length) }}
+                    </div>
+                    <div>
+                    {{ render_field(form.pattern) }}
+                    </div>
+                    {{form.submit()}}
+                </form>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+
+
+{% endblock %}
