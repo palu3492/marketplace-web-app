@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1>Hi, {{ current_user.name }}!</h1>
-    <form action="" method="post">
+    <h4>Post new listing</h4>
+    <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
             {{ form.title.label }}<br>
@@ -29,6 +29,13 @@
             {{ form.body.label }}<br>
             {{ form.body(cols=32, rows=4) }}<br>
             {% for error in form.body.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.image.label }}<br>
+            {{ form.image() }}<br>
+            {% for error in form.image.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>

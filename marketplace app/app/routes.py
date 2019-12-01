@@ -1,14 +1,12 @@
-from flask import render_template, flash, redirect, url_for
-from app import app
-from app.forms import LoginForm
-from flask_login import current_user, login_user
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import current_user, login_user, logout_user, login_required
+from app import app, db
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ListingForm
 from app.models import User, Listing, Image
-from flask_login import logout_user, login_required
-from flask import request
+from werkzeug import secure_filename
 from werkzeug.urls import url_parse
-from app import db
-from app.forms import RegistrationForm, EditProfileForm, ListingForm
 from datetime import datetime
+import os
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -93,8 +91,18 @@ def new_listing():
         )
         db.session.add(_listing)
         db.session.commit()
+
+        filename = secure_filename(form.image.data.filename)
+        form.image.data.save(os.path.join(app.config['IMAGES_FOLDER'], filename))
+        image = Image(
+            src=filename,
+            listing_id=_listing.id
+        )
+        db.session.add(image)
+        db.session.commit()
+
         flash('Your post is now live!')
-        return redirect(url_for('index'))
+        return redirect(url_for('listing', id=_listing.id))
     return render_template("new_listing.html", title='New Listing', form=form)
 
 @app.route('/listing/<id>')

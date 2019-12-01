@@ -14,5 +14,5 @@ login = LoginManager(app)
 login.login_view = 'login'
 bootstrap = Bootstrap(app)
 moment = Moment(app)
-
+app.config['IMAGES_FOLDER'] = Config.IMAGES_FOLDER
 from app import routes, models, errors

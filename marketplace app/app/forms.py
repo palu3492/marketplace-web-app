@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length, NumberRange
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+from flask_uploads import UploadSet, IMAGES
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
@@ -36,11 +38,16 @@ class EditProfileForm(FlaskForm):
             if user is not None:
                 raise ValidationError('Please use a different username.')
 
+
 class ListingForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=1, max=140)])
     body = TextAreaField('Body', validators=[DataRequired(), Length(min=1, max=140)])
     price = StringField('Price', validators=[DataRequired()])
     conditions = [('New','New'), ('Used', 'Used'), ('Broken', 'Broken')]
     condition = SelectField('Condition', choices=conditions)
+
+    image = FileField('image')
+
     submit = SubmitField('Submit')
+
 
