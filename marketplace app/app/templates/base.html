@@ -1,0 +1,58 @@
+{% extends "bootstrap_base.html" %}
+
+{% block title %}
+    {% if title %}{{ title }} - Marketplace{% else %}Marketplace{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav navbar-left">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{{ url_for('index') }}">
+                        <img src="../static/assets/logo2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Marketplace
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Listings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('new_listing') }}">Sell</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-right">
+                {% if current_user.is_anonymous %}
+                <li class="nav-item"><a href="{{ url_for('login') }}">Login</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link"  href="{{ url_for('user', id=current_user.id) }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link"  href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="../static/style/test.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+{% endblock %}

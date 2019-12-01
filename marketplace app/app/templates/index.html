@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    {% for listing in listings %}
+        {% include "_listing.html" %}
+    {% endfor %}
+{% endblock %}

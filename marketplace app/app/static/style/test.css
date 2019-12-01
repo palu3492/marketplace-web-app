@@ -1,0 +1,21 @@
+.profile-image {
+    border-radius: 50%;
+}
+.container-fluid {
+    background-color: #f7f9fa;
+}
+.listing{
+    width: 220px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border-radius: 4px;
+}
+.image-container{
+    background: #f0f0f0;
+    height: 140px;
+    width: 100%;
+}
+
+nav{
+    border-bottom: #bfd0d8 solid 2px;
+}

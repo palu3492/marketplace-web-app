@@ -29,3 +29,22 @@ Or you may define your own API for your app to use on one or more of the pages.
 
 Your program must use the bootstrap templates, and you must make an attempt to make it look aesthetically nice.
 - Use bootstrap
+
+
+home page
+- can view all listings
+listing page
+- details about listing with more images
+- can message user or click on user's profile
+login, register
+profile page
+- has user image, listings and can message them
+message page
+- send message to use via email
+post listing
+- enter all info for posting a listing
+
+received email should say:
+- this user sent you a message
+- show message
+- click this link to respond
