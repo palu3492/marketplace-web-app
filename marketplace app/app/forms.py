@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length, NumberRange
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -37,8 +37,10 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError('Please use a different username.')
 
 class ListingForm(FlaskForm):
-    title = TextAreaField('Title', validators=[DataRequired(), Length(min=1, max=140)])
+    title = StringField('Title', validators=[DataRequired(), Length(min=1, max=140)])
     body = TextAreaField('Body', validators=[DataRequired(), Length(min=1, max=140)])
-    condition = SelectField('Condition', choices=[('New','New'), ('Used', 'Used'), ('Broken', 'Broken')])
+    price = StringField('Price', validators=[DataRequired()])
+    conditions = [('New','New'), ('Used', 'Used'), ('Broken', 'Broken')]
+    condition = SelectField('Condition', choices=conditions)
     submit = SubmitField('Submit')
 

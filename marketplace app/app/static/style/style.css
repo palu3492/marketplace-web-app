@@ -1,0 +1,35 @@
+.profile-image {
+    border-radius: 50%;
+}
+.listings{
+    margin-left: -1.5rem;
+}
+.listing{
+    min-width: 202px;
+    max-width: 202px;
+    width: 202px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    position: relative;
+}
+.image-container{
+    background: #f0f0f0;
+    height: 140px;
+    text-align: center;
+    /*overflow: hidden;*/
+}
+.price{
+    position: absolute;
+    right: 0;
+    background: #3ddc84;
+    padding: 3px;
+    border-bottom-left-radius: 4px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+nav{
+    border-bottom: #bfd0d8 solid 2px;
+}

@@ -84,8 +84,14 @@ def edit_profile():
 def new_listing():
     form = ListingForm()
     if form.validate_on_submit():
-        listing = Listing(title=form.title.data, body=form.body.data, condition=form.condition.data, author=current_user)
-        db.session.add(listing)
+        _listing = Listing(
+            title=form.title.data,
+            body=form.body.data,
+            condition=form.condition.data,
+            price=form.price.data,
+            author=current_user
+        )
+        db.session.add(_listing)
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
@@ -94,5 +100,5 @@ def new_listing():
 @app.route('/listing/<id>')
 def listing(id):
     # user = User.query.filter_by(username=username).first_or_404()
-    # posts = Post.query.filter_by(user_id=user.id).order_by(Post.timestamp.desc())
-    return render_template('listing.html', id=id)
+    _listing = Listing.query.filter_by(id=id).first_or_404()
+    return render_template('listing.html', listing=_listing)

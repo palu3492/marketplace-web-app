@@ -30,7 +30,8 @@ class User(UserMixin, db.Model):
 class Listing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
-    condition = db.Column(db.String(100))
+    price = db.Column(db.String(20))  # number db.Float
+    condition = db.Column(db.String(10))
     body = db.Column(db.String(300))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

@@ -6,7 +6,7 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.title.label }}<br>
-            {{ form.title(cols=32, rows=1) }}<br>
+            {{ form.title() }}<br>
             {% for error in form.title.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
@@ -15,6 +15,13 @@
             {{ form.condition.label }}<br>
             {{ form.condition() }}<br>
             {% for error in form.condition.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.price.label }}<br>
+            {{ form.price() }}<br>
+            {% for error in form.price.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>

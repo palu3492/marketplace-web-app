@@ -16,7 +16,10 @@
     <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
     {% endif %}
     <hr>
-    {% for listing in listings %}
-        {% include "_listing.html" %}
-    {% endfor %}
+    <h5>{{ user.name }}'s Listings</h5>
+    <div class="d-flex flex-row flex-wrap pt-4 pb-4 listings">
+        {% for listing in listings %}
+            {% include "_listing.html" %}
+        {% endfor %}
+    </div>
 {% endblock %}
