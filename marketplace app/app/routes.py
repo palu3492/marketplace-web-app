@@ -11,8 +11,12 @@ import os
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    listings = Listing.query.all()
-    return render_template("index.html", title='Home Page', listings=listings, page='Listings')
+    listings = Listing.query.order_by(Listing.timestamp.desc()).all()
+    images = {}
+    for _listing in listings:
+        print(_listing.price)
+        images[_listing.id] = Image.query.filter_by(listing_id=_listing.id).first()
+    return render_template("index.html", title='Home Page', listings=listings, images=images, page='Listings')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -52,9 +56,12 @@ def register():
 
 @app.route('/user/<id>')
 def user(id):
-    user = User.query.filter_by(id=id).first_or_404()
-    listings = Listing.query.filter_by(user_id=user.id).order_by(Listing.timestamp.desc())
-    return render_template('user.html', user=user, listings=listings)
+    _user = User.query.filter_by(id=id).first_or_404()
+    listings = Listing.query.filter_by(user_id=_user.id).order_by(Listing.timestamp.desc()).all()
+    images = {}
+    for _listing in listings:
+        images[_listing.id] = Image.query.filter_by(listing_id=_listing.id).first()
+    return render_template('user.html', user=_user, listings=listings, images=images)
 
 @app.before_request
 def before_request():
@@ -65,10 +72,9 @@ def before_request():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm(current_user.username)
+    form = EditProfileForm(current_user.name)
     if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.about_me = form.about_me.data
+        current_user.name = form.name.data
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('edit_profile'))
@@ -91,11 +97,20 @@ def new_listing():
         )
         db.session.add(_listing)
         db.session.commit()
-
+        # Image upload
         filename = secure_filename(form.image.data.filename)
-        form.image.data.save(os.path.join(app.config['IMAGES_FOLDER'], filename))
+        [filename, ext] = filename.split('.') # ['image', 'png']
+        instance = 0
+        db_image = Image.query.filter_by(name=filename).order_by(Image.instance.desc()).first()
+        if db_image and db_image.instance is not None:
+            instance = int(db_image.instance) + 1
+        location = filename + str(instance) + '.' + ext
+        form.image.data.save(os.path.join(app.config['IMAGES_FOLDER'], location))
         image = Image(
-            src=filename,
+            name=filename,
+            extension=ext,
+            instance=instance,
+            src=location,
             listing_id=_listing.id
         )
         db.session.add(image)

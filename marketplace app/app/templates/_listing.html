@@ -1,8 +1,10 @@
 <div class="listing ml-4 mb-4">
     <a href="{{ url_for('listing', id=listing.id) }}">
-        <div class="price">${{ listing.price }}</div>
+        <div class="price p-1">${{ listing.price }}</div>
         <div class="container-fluid image-container">
-            <img height="140" width="auto" src="https://static.swappa.com/media/listing/LRZM20784/TmZKSCMs.jpg"/>
+            <div>
+                <img height="140" width="auto" src="../static/listing_images/{{ images[listing.id].src }}"/>
+            </div>
         </div>
         <div class="container-fluid">
             <p>{{ listing.condition }}</p>

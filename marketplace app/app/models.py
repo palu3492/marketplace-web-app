@@ -38,5 +38,8 @@ class Listing(db.Model):
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    extension = db.Column(db.String(100))
+    instance = db.Column(db.Integer)
     src = db.Column(db.String(100))
     listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'))

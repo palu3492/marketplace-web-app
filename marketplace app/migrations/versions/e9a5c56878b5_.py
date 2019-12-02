@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 31f1799664b8
+Revision ID: e9a5c56878b5
 Revises: 
-Create Date: 2019-11-30 22:14:24.875805
+Create Date: 2019-12-01 16:16:33.005641
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '31f1799664b8'
+revision = 'e9a5c56878b5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,8 @@ def upgrade():
     op.create_table('listing',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=100), nullable=True),
-    sa.Column('condition', sa.String(length=100), nullable=True),
+    sa.Column('price', sa.String(length=20), nullable=True),
+    sa.Column('condition', sa.String(length=10), nullable=True),
     sa.Column('body', sa.String(length=300), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -40,6 +41,9 @@ def upgrade():
     op.create_index(op.f('ix_listing_timestamp'), 'listing', ['timestamp'], unique=False)
     op.create_table('image',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=True),
+    sa.Column('extension', sa.String(length=100), nullable=True),
+    sa.Column('instance', sa.Integer(), nullable=True),
     sa.Column('src', sa.String(length=100), nullable=True),
     sa.Column('listing_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['listing_id'], ['listing.id'], ),
