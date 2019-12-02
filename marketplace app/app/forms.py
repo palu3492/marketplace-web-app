@@ -8,7 +8,6 @@ from flask_uploads import UploadSet, IMAGES
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    # remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
 class RegistrationForm(FlaskForm):
@@ -25,17 +24,18 @@ class RegistrationForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-    def __init__(self, original_username, *args, **kwargs):
-        super(EditProfileForm, self).__init__(*args, **kwargs)
-        self.original_username = original_username
+    # def __init__(self, original_name, *args, **kwargs):
+    #     super(EditProfileForm, self).__init__(*args, **kwargs)
+    #     self.original_name = original_name
 
-    def validate_username(self, username):
-        if username.data != self.original_username:
-            user = User.query.filter_by(username=self.username.data).first()
-            if user is not None:
-                raise ValidationError('Please use a different username.')
+    # def validate_username(self, username):
+    #     if username.data != self.original_username:
+    #         user = User.query.filter_by(username=self.username.data).first()
+    #         if user is not None:
+    #             raise ValidationError('Please use a different username.')
 
 
 class ListingForm(FlaskForm):

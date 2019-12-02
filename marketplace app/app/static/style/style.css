@@ -40,12 +40,23 @@
 .title-container{
     border-bottom: #bfd0d8 solid 1px;
 }
+.alert{
+    width: fit-content;
+    width: -moz-fit-content;
+}
+.user-info{
+    border-top: #bfd0d8 solid 1px;
+}
+.user-info *{
+    display: inline;
+}
 
 footer{
     border-top: #bfd0d8 solid 2px;
     position: fixed;
     bottom: 0;
     width: 100%;
+    background: white;
 }
 nav{
     border-bottom: #bfd0d8 solid 2px;

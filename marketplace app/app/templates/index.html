@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <div class="d-flex flex-row flex-wrap pt-4 pb-4 listings">
+    <div class="d-flex flex-row flex-wrap pb-4 listings">
         {% for listing in listings %}
             {% include "_listing.html" %}
         {% endfor %}

@@ -6,26 +6,15 @@
                 <img height="140" width="auto" src="../static/listing_images/{{ images[listing.id].src }}"/>
             </div>
         </div>
-        <div class="container-fluid">
-            <p>{{ listing.condition }}</p>
-            <p>{{ listing.title }}</p>
-        </div>
-<!--    <tr>-->
-<!--        <td width="70px">-->
-<!--            <a href="{{ url_for('user', id=listing.author.id) }}">-->
-<!--                <img class="profile-image" src="{{ listing.author.avatar(70) }}" />-->
-<!--            </a>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <a href="{{ url_for('user', id=listing.author.id) }}">-->
-<!--                user: {{ listing.author.name }}-->
-<!--            </a>-->
-<!--            said {{ moment(listing.timestamp).fromNow() }}:-->
-<!--            <br>-->
-<!--            title: {{ listing.title }}-->
-<!--            <br>-->
-<!--            body: {{ listing.body }}-->
-<!--        </td>-->
-<!--    </tr>-->
     </a>
+    <div class="container-fluid">
+        <p>{{ listing.condition }}</p>
+        <p>{{ listing.title }}</p>
+        {% if user_info %}
+            <div class="user-info pt-1 pb-1">
+                <img height="40" width="auto" src="{{ users[listing.id].avatar(40) }}"/>
+                <a href="{{ url_for('user', id=users[listing.id].id) }}"><p>{{ users[listing.id].name }}</p></a>
+            </div>
+        {% endif %}
+    </div>
 </div>

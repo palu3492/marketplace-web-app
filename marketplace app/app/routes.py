@@ -3,6 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, ListingForm
 from app.models import User, Listing, Image
+from app.email import send_email
 from werkzeug import secure_filename
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -13,10 +14,11 @@ import os
 def index():
     listings = Listing.query.order_by(Listing.timestamp.desc()).all()
     images = {}
+    users = {}
     for _listing in listings:
-        print(_listing.price)
         images[_listing.id] = Image.query.filter_by(listing_id=_listing.id).first()
-    return render_template("index.html", title='Home Page', listings=listings, images=images, page='Listings')
+        users[_listing.id] = User.query.filter_by(id=_listing.user_id).first()
+    return render_template("index.html", title='Listings', listings=listings, images=images, users=users, user_info=True)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -33,7 +35,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html', title='Login', form=form)
 
 @app.route('/logout')
 def logout():
@@ -61,7 +63,7 @@ def user(id):
     images = {}
     for _listing in listings:
         images[_listing.id] = Image.query.filter_by(listing_id=_listing.id).first()
-    return render_template('user.html', user=_user, listings=listings, images=images)
+    return render_template('user.html', user=_user, listings=listings, images=images, title='View Profile', user_info=False)
 
 @app.before_request
 def before_request():
@@ -72,15 +74,16 @@ def before_request():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm(current_user.name)
+    form = EditProfileForm()
     if form.validate_on_submit():
         current_user.name = form.name.data
+        current_user.email = form.email.data
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.about_me.data = current_user.about_me
+        form.name.data = current_user.name
+        form.email.data = current_user.email
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 @app.route('/new_listing', methods=['GET', 'POST'])
@@ -118,10 +121,26 @@ def new_listing():
 
         flash('Your post is now live!')
         return redirect(url_for('listing', id=_listing.id))
-    return render_template("new_listing.html", title='New Listing', form=form)
+    return render_template("new_listing.html", title='Create New Listing', form=form)
 
 @app.route('/listing/<id>')
 def listing(id):
     # user = User.query.filter_by(username=username).first_or_404()
     _listing = Listing.query.filter_by(id=id).first_or_404()
-    return render_template('listing.html', listing=_listing)
+    image = Image.query.filter_by(listing_id=_listing.id).first()
+    return render_template('listing.html', listing=_listing, title='View Listing', image=image)
+
+@app.route('/delete_listing/<id>')
+@login_required
+def delete_listing(id):
+    Listing.query.filter_by(id=id).delete()
+    Image.query.filter_by(listing_id=id).delete()
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/message/<id>')
+@login_required
+def message(id):
+    # subject, sender, recipients, text_body, html_body
+    send_email('test', 'flasktestemail120@gmail.com', ['honesa6392@topmail2.com'], 'test1', 'test2')
+    return redirect(url_for('index'))

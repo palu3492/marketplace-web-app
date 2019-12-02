@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <img height="300" width="auto" src="https://static.swappa.com/media/listing/LRZM20784/TmZKSCMs.jpg"/>
+    {% if listing.author == current_user %}
+        <p><a href="{{ url_for('delete_listing', id=listing.id) }}">Delete listing</a></p>
+    {% endif %}
+    <img height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
     <p>condition: {{ listing.condition }}</p>
     <p>price: ${{ listing.price }}</p>
     <p>title: {{ listing.title }}</p>
