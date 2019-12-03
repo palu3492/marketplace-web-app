@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, ListingForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ListingForm, MessageForm
 from app.models import User, Listing, Image
 from app.email import send_email
 from werkzeug import secure_filename
@@ -81,7 +81,7 @@ def edit_profile():
         current_user.email = form.email.data
         db.session.commit()
         flash('Profile updated')
-        return redirect(url_for('edit_profile'))
+        return redirect(url_for('user', id=current_user.id))
     elif request.method == 'GET':
         form.name.data = current_user.name
         form.email.data = current_user.email
@@ -143,10 +143,13 @@ def delete_listing(id):
 @app.route('/message/<id>')
 @login_required
 def message(id):
+    _user = User.query.filter_by(id=id).first_or_404()
     form = MessageForm()
     if form.validate_on_submit():
         # subject, sender, recipients, text_body, html_body
-        send_email('test', 'flasktestemail120@gmail.com', ['honesa6392@topmail2.com'], 'test1', 'test2')
+        subject = 'test subject'
+        recipient = 'honesa6392@topmail2.com'
+        send_email(subject, 'flasktestemail120@gmail.com', [recipient], 'test1', 'test2')
         flash('Message sent')
         return redirect(url_for('index'))
-    return render_template('message.html', title='Message user')
+    return render_template('message.html', title='Send Message', form=form, user=_user, current_user=current_user)

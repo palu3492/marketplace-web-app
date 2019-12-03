@@ -40,11 +40,16 @@ class EditProfileForm(FlaskForm):
 
 class ListingForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=1, max=140)])
-    body = TextAreaField('Body', validators=[DataRequired(), Length(min=1, max=1000)])
+    body = TextAreaField('Details', validators=[DataRequired(), Length(min=1, max=1000)])
     price = StringField('Price', validators=[DataRequired()])
     conditions = [('New','New'), ('Used', 'Used'), ('Broken', 'Broken')]
     condition = SelectField('Condition', choices=conditions)
     image = FileField('Image')
+    submit = SubmitField('Submit')
+
+class MessageForm(FlaskForm):
+    subject = StringField('Subject', validators=[DataRequired(), Length(min=1, max=140)])
+    body = TextAreaField('Message', validators=[DataRequired(), Length(min=1, max=1000)])
     submit = SubmitField('Submit')
 
 
