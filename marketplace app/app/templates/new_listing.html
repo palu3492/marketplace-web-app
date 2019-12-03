@@ -26,7 +26,7 @@
         </p>
         <p>
             {{ form.body.label }}<br>
-            {{ form.body(cols=32, rows=4) }}<br>
+            {{ form.body(rows=6) }}<br>
             {% for error in form.body.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}

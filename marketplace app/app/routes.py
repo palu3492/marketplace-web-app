@@ -40,6 +40,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash("You've been logged out")
     return redirect(url_for('index'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -52,7 +53,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('You are now a registered user!')
+        flash("You've been registered")
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -79,7 +80,7 @@ def edit_profile():
         current_user.name = form.name.data
         current_user.email = form.email.data
         db.session.commit()
-        flash('Your changes have been saved.')
+        flash('Profile updated')
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.name.data = current_user.name
@@ -119,7 +120,7 @@ def new_listing():
         db.session.add(image)
         db.session.commit()
 
-        flash('Your post is now live!')
+        flash('Listing created')
         return redirect(url_for('listing', id=_listing.id))
     return render_template("new_listing.html", title='Create New Listing', form=form)
 
@@ -136,11 +137,16 @@ def delete_listing(id):
     Listing.query.filter_by(id=id).delete()
     Image.query.filter_by(listing_id=id).delete()
     db.session.commit()
+    flash('Listing deleted')
     return redirect(url_for('index'))
 
 @app.route('/message/<id>')
 @login_required
 def message(id):
-    # subject, sender, recipients, text_body, html_body
-    send_email('test', 'flasktestemail120@gmail.com', ['honesa6392@topmail2.com'], 'test1', 'test2')
-    return redirect(url_for('index'))
+    form = MessageForm()
+    if form.validate_on_submit():
+        # subject, sender, recipients, text_body, html_body
+        send_email('test', 'flasktestemail120@gmail.com', ['honesa6392@topmail2.com'], 'test1', 'test2')
+        flash('Message sent')
+        return redirect(url_for('index'))
+    return render_template('message.html', title='Message user')

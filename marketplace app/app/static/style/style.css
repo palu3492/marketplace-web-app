@@ -1,8 +1,13 @@
+#title{
+    width: 50%;
+}
+
 .profile-image {
     border-radius: 50%;
 }
 .listings{
     margin-left: -1.5rem;
+    align-items: flex-start;
 }
 .listing{
     min-width: 202px;
@@ -12,6 +17,20 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     border-radius: 4px;
     position: relative;
+}
+.listing a {
+    color: black;
+    text-decoration: none;
+}
+.listing-a:hover, .user-a:hover{
+    color: #535353;
+}
+.condition{
+    font-weight: 700;
+}
+.time-created{
+    font-size: small;
+    font-weight: 300;
 }
 .image-container{
     background: #f0f0f0;
@@ -50,14 +69,29 @@
 .user-info *{
     display: inline;
 }
+.user-info > img{
+    border-radius: 50%;
+}
 
+
+nav{
+    border-bottom: #bfd0d8 solid 2px;
+}
+pre{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    white-space:pre-wrap
+}
+textarea{
+    width: 100%;
+}
 footer{
     border-top: #bfd0d8 solid 2px;
     position: fixed;
     bottom: 0;
     width: 100%;
     background: white;
-}
-nav{
-    border-bottom: #bfd0d8 solid 2px;
 }
