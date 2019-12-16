@@ -11,7 +11,7 @@ function createLeafletMap(){
     // Set map layers to mapbox
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         id: 'mapbox/streets-v11',
-        accessToken: 'pk.eyJ1IjoiYWpwMCIsImEiOiJjazN4cGd4MGQxNW1hM3F0NnU5M3Jiem80In0.71DleDv1Fm-ArumkU37BjA', // token to use mapbox
+        accessToken: 'pk.eyJ1IjoiYWFyb25ldWwiLCJhIjoiY2s0OHppeG9zMWI3YzNubjZ4NDJkb3l0diJ9.wjSxjtu576jVk52lzdjkDw', // token to use mapbox
     }).addTo(map);
 
     getCityLatLng(state, city)
@@ -30,7 +30,7 @@ function getCityLatLng(state, city){
 }
 
 function findDistance(){
-    // from https://stackoverflow.com/questions/8658730/what-is-the-conversion-of-latitude-longitude-to-a-1-mile
+    // source https://stackoverflow.com/questions/8658730/what-is-the-conversion-of-latitude-longitude-to-a-1-mile
     let myLatLng, otherLatLng;
     let p1 = getCityLatLng(myState, myCity)
         .then(data => {
@@ -44,7 +44,9 @@ function findDistance(){
         .then(() => {
             let distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng,otherLatLng,3956);
             let miles = parseInt(distance * 1609.34);
-            let text = miles+' miles away';
-            $('#miles-away').text(text)
+            if(miles) {
+                let text = miles + ' miles away';
+                $('#miles-away').text(text)
+            }
         });
 }

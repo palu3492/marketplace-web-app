@@ -10,19 +10,20 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
-class RegistrationForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida',
+states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida',
     'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
     'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New',
     'Hampshire', 'New', 'Jersey', 'New', 'Mexico', 'New', 'York', 'North', 'Carolina', 'North', 'Dakota', 'Ohio',
     'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode', 'Island', 'South', 'Carolina', 'South', 'Dakota', 'Tennessee',
     'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West', 'Virginia', 'Wisconsin', 'Wyoming']
-    s = []
-    for state in states:
-       s.append((state, state))
-    state = SelectField('State', choices=s)
+state_choices = []
+for state in states:
+   state_choices.append((state, state))
+
+class RegistrationForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    state = SelectField('State', choices=state_choices)
     city = StringField('City', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
@@ -36,7 +37,7 @@ class RegistrationForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
-    state = StringField('State', validators=[DataRequired()])
+    state = SelectField('State', choices=state_choices)
     city = StringField('City', validators=[DataRequired()])
     submit = SubmitField('Submit')
 

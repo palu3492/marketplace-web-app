@@ -151,11 +151,16 @@ def listing(id):
 @app.route('/delete_listing/<id>')
 @login_required
 def delete_listing(id):
-    Listing.query.filter_by(id=id).delete()
-    Image.query.filter_by(listing_id=id).delete()
-    db.session.commit()
-    flash('Listing deleted')
-    return redirect(url_for('index'))
+    _listing = Listing.query.filter_by(id=id)
+    if _listing.first().author == current_user:
+        Listing.query.filter_by(id=id).delete()
+        Image.query.filter_by(listing_id=id).delete()
+        db.session.commit()
+        flash('Listing deleted')
+        return redirect(url_for('index'))
+    else:
+        flash('You can only delete listings you authored')
+        return redirect(url_for('listing', id=id))
 
 @app.route('/message/<id>')
 @login_required

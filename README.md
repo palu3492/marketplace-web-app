@@ -10,6 +10,7 @@ Flask web app for CSE400 final project.
     * Flask, Flask Login, Flask Mail, WTForms, Flask Migrate
     * Bootstrap
     * SQLite
+    * jQuery - for updating DOM
     * Leaflet - interactive map library
     * Nominatim API - convert location to latitude and longitude
         * https://nominatim.org/release-docs/develop/api/Overview/
@@ -28,6 +29,8 @@ Flask web app for CSE400 final project.
     * logout
     * register
 8. **List of Views and their short description**:
+
+    There is basically a view for each controller.
     * index.html - Home page of the website, displays all listings for sale posted by users of the site.
     Listings show the title, price, and image of the product for sale and who posted the listing.
     * listing.html - Displays a listing's information: title, price, condition, description, and images.
@@ -46,11 +49,16 @@ Flask web app for CSE400 final project.
     A POST request will ask the server to remove all information about the listing from the database tables. 
     * user.html - Displays all the information about a user: name, profile image, location, when they were online last,
     link to message them, and a map showing their location. Also, all the listings they authored are shown.
-    * edit_profile.html
-    * message.html
-    * login.html
-    * logout.html
-    * register.html
+    * edit_profile.html - A form for editing information about the logged in user. A user can update their
+    email, name, city, and state.
+    * message.html - A form for sending a message to another user. Input a subject and message and an email
+    with that information will be send to that user's email by issuing a POST request to the server.
+    * login.html - A form for logging in. After a user enters their correct email and password they
+    will be redirected to the home page. There is also a register button that lets
+    unregistered users register an account. 
+    * logout.html - This page simply logs out the logged in user and redirects them to the home page.
+    * register.html - A form for registering an account. A new user enters their name, email, city, and state
+    to create an account. A POST request will ask the server to add the new user to the database.
 9. **List of Tables, their Structure and short description**:
     * User table - Holds all user data from when a user registers and this data can be changed on the edit profile page.
         * Columns: id, name, email, password_hash (plain-text password hashed for security), last_seen, city, state
@@ -74,7 +82,7 @@ Flask web app for CSE400 final project.
     Helped with using SQLAlchemy.
     
     https://pythonhosted.org/Flask-Uploads/
-    For learning how to do flask file uploads.
+    For learning how to do Flask file uploads.
     
     https://flask-migrate.readthedocs.io/en/latest/
     For learning how to use Flask Migrate.
@@ -83,5 +91,8 @@ Flask web app for CSE400 final project.
     For understanding routing.
     
     https://stackoverflow.com/questions/tagged/flask
-    Used to find answers to problems I had in flask.
+    Used to find answers to problems I had in Flask.
+    
+    https://leafletjs.com/examples/quick-start/
+    For setting up Leaflet map.
 

@@ -1,6 +1,6 @@
 Todo:
 
-0. Need another table
+0. Need another table in db
 
 1. On register and edit profile, verify email isn't taken
 
