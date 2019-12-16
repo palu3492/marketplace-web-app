@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, ListingForm, MessageForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ListingForm, MessageForm, FilterForm
 from app.models import User, Listing, Image
 from app.email import send_email
 from werkzeug import secure_filename
@@ -12,13 +12,15 @@ import os
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    form = FilterForm()
     listings = Listing.query.order_by(Listing.timestamp.desc()).all()
+    listings = listings + listings + listings
     images = {}
     users = {}
     for _listing in listings:
         images[_listing.id] = Image.query.filter_by(listing_id=_listing.id).first()
         users[_listing.id] = User.query.filter_by(id=_listing.user_id).first()
-    return render_template("index.html", title='Listings', listings=listings, images=images, users=users, user_info=True)
+    return render_template("index.html", title='Listings', listings=listings, images=images, users=users, user_info=True, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

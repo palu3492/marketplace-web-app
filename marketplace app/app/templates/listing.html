@@ -4,7 +4,7 @@
     {% if listing.author == current_user %}
         <p><a href="{{ url_for('delete_listing', id=listing.id) }}">Delete listing</a></p>
     {% endif %}
-    <p><b>{{ listing.title }}</b></p>
+    <p class="font-weight-bold">{{ listing.title }}</p>
     <img height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
     <p>Condition: {{ listing.condition }}</p>
     <p>${{ listing.price }}</p>

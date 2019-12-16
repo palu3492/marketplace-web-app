@@ -1,9 +1,34 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-    <div class="d-flex flex-row flex-wrap pb-4 listings">
-        {% for listing in listings %}
-            {% include "_listing.html" %}
-        {% endfor %}
+    <div id="filters">
+        <label class="font-weight-bold mr-2">Filters:</label>
+        <form action="" method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <span>
+                {{ form.price_min.label }}
+                {{ form.price_min() }}
+                {% for error in form.price_min.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                {{ form.price_max.label }}
+                {{ form.price_max() }}
+                {% for error in form.price_max.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                {{ form.condition.label }}
+                {{ form.condition() }}
+                {% for error in form.condition.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>{{ form.submit() }}</span>
+        </form>
     </div>
+    {% include "_listings.html" %}
 {% endblock %}

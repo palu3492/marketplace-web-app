@@ -13,6 +13,9 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
+    states = [('New', 'New'), ('Used', 'Used'), ('Broken', 'Broken')]
+    state = SelectField('Condition', choices=states)
+    email = StringField('City', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
@@ -52,4 +55,10 @@ class MessageForm(FlaskForm):
     body = TextAreaField('Message', validators=[DataRequired(), Length(min=1, max=1000)])
     submit = SubmitField('Submit')
 
+class FilterForm(FlaskForm):
+    price_min = StringField('Price min')
+    price_max = StringField('Price max')
+    conditions = [('New','New'), ('Used', 'Used'), ('Broken', 'Broken')]
+    condition = SelectField('Condition', choices=conditions)
+    submit = SubmitField('Submit')
 

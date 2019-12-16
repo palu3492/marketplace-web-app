@@ -5,13 +5,29 @@
 .profile-image {
     border-radius: 50%;
 }
-.listings{
+#listings{
     margin-left: -1.5rem;
     align-items: flex-start;
 }
+#filters{
+    border-bottom: #bfd0d8 solid 1px;
+}
+#filters > * {
+    display: inline-block;
+}
+#user-table td {
+    display: inline-block;
+}
+#map{
+    width: 500px;
+    height: 200px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border-radius: 4px;
+}
 .listing{
-    min-width: 202px;
-    max-width: 202px;
+    /*min-width: 202px;*/
+    /*max-width: 202px;*/
     width: 202px;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);

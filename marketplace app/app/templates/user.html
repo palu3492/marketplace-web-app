@@ -1,14 +1,29 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <table>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+       crossorigin=""/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+    <script>let city='{{ user.city }}', state='{{ user.state }}';</script>
+    <script src="../static/scripts/map.js"></script>
+    <table id="user-table">
         <tr valign="top">
-            <td><img class="profile-image mr-4" src="{{ user.avatar(128) }}"></td>
-            <td>
+            <td class="mr-4"><img class="profile-image" src="{{ user.avatar(128) }}"></td>
+            <td class="mr-4">
                 <h1>{{ user.name }}</h1>
                 {% if user.last_seen %}
                     <p>Last seen on: {{ moment(user.last_seen).format('LLL') }}</p>
                 {% endif %}
+                <p>Location: {{ user.city }}, {{ user.state }}</p>
+            </td>
+            <td>
+                <style>.leaflet-popup-content{margin: 5px;}</style>
+                <div id="map"></div>
+                <script>createLeafletMap();</script>
             </td>
         </tr>
     </table>
@@ -24,9 +39,6 @@
     <div class="title-container mt-3 mb-4">
         <h5 class="mt-3 mb-3">{{ user.name }}'s Listings</h5>
     </div>
-    <div class="d-flex flex-row flex-wrap pb-4 listings">
-        {% for listing in listings %}
-            {% include "_listing.html" %}
-        {% endfor %}
-    </div>
+
+    {% include "_listings.html" %}
 {% endblock %}

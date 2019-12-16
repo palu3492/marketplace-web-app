@@ -1,0 +1,13 @@
+Todo:
+
+Listings filter
+
+Listing page add user and fix style
+
+Edit profile add city state
+
+New listing multiple images
+
+On register and edit profile, verify email isn't taken
+
+Make sure messaging works
