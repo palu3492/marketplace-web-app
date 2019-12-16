@@ -1,6 +1,6 @@
 
-let map;
 function createLeafletMap(){
+    let map;
 
     // Create map with custom settings
     map = L.map('map', {
@@ -27,4 +27,24 @@ function getCityLatLng(state, city){
     let country = 'United States';
     let apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&country='+country+'&state='+state+'&city='+city;
     return $.getJSON(apiUrl);
+}
+
+function findDistance(){
+    // from https://stackoverflow.com/questions/8658730/what-is-the-conversion-of-latitude-longitude-to-a-1-mile
+    let myLatLng, otherLatLng;
+    let p1 = getCityLatLng(myState, myCity)
+        .then(data => {
+            myLatLng = new google.maps.LatLng(data[0].lat, data[0].lon);
+        });
+    let p2 = getCityLatLng(otherState, otherCity)
+        .then(data => {
+            otherLatLng = new google.maps.LatLng(data[0].lat, data[0].lon);
+        });
+    Promise.all([p1, p2])
+        .then(() => {
+            let distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng,otherLatLng,3956);
+            let miles = parseInt(distance * 1609.34);
+            let text = miles+' miles away';
+            $('#miles-away').text(text)
+        });
 }

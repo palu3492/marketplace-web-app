@@ -144,9 +144,9 @@ def new_listing():
 @app.route('/listing/<id>')
 def listing(id):
     _listing = Listing.query.filter_by(id=id).first_or_404()
-    user = _listing.author
+    _user = _listing.author
     image = Image.query.filter_by(listing_id=_listing.id).first()
-    return render_template('listing.html', listing=_listing, title='View Listing', image=image, user=user)
+    return render_template('listing.html', listing=_listing, title='View Listing', image=image, user=_user, current_user=current_user)
 
 @app.route('/delete_listing/<id>')
 @login_required

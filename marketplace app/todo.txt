@@ -1,9 +1,9 @@
 Todo:
 
+0. Need another table
+
 1. On register and edit profile, verify email isn't taken
 
 2. New listing multiple images
 
 3. Make sure messaging works
-
-4. Listing page - style it

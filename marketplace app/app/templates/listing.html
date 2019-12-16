@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block app_content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript"src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+    <script src="../static/scripts/map.js"></script>
     <div style="display: flex; align-items: flex-start;">
         <div class="col-8 pl-0">
             {% if listing.author == current_user %}
@@ -12,11 +15,11 @@
             <img style="display: block;" height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
             <pre>{{ listing.body }}</pre>
         </div>
-        <div class="col-4 listing-user pt-2">
+        <div class="col-4 listing-user py-2">
             <table>
                 <tbody>
                     <tr><td><p class="mb-1"><u>Posted by:</u></p></td></tr>
-                    <tr>
+                    <tr style="vertical-align: top;">
                         <td>
                             <img width="60px" height="60px" class="profile-image mr-1" src="{{ user.avatar(128) }}"/>
                         </td>
@@ -24,7 +27,13 @@
                             <a href="{{ url_for('user', id=user.id) }}">
                                 <h4>{{ user.name }}</h4>
                             </a>
-                            <p>📍 {{ user.city }}, {{ user.state }}</p>
+                            <p class="mb-0">📍 {{ user.city }}, {{ user.state }}</p>
+                            {% if current_user != user %}
+                                <p class="mb-0" id="miles-away"></p>
+                                <script>let myCity='{{ current_user.city }}', myState='{{ current_user.state }}';</script>
+                                <script>let otherCity='{{ user.city }}', otherState='{{ user.state }}';</script>
+                                <script>findDistance();</script>
+                            {% endif %}
                         </td>
                     </tr>
                 </tbody>
