@@ -13,9 +13,17 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    states = [('New', 'New'), ('Used', 'Used'), ('Broken', 'Broken')]
-    state = SelectField('Condition', choices=states)
-    email = StringField('City', validators=[DataRequired()])
+    states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida',
+    'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+    'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New',
+    'Hampshire', 'New', 'Jersey', 'New', 'Mexico', 'New', 'York', 'North', 'Carolina', 'North', 'Dakota', 'Ohio',
+    'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode', 'Island', 'South', 'Carolina', 'South', 'Dakota', 'Tennessee',
+    'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West', 'Virginia', 'Wisconsin', 'Wyoming']
+    s = []
+    for state in states:
+       s.append((state, state))
+    state = SelectField('State', choices=s)
+    city = StringField('City', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
@@ -28,6 +36,8 @@ class RegistrationForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    city = StringField('City', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
     # def __init__(self, original_name, *args, **kwargs):
@@ -58,7 +68,7 @@ class MessageForm(FlaskForm):
 class FilterForm(FlaskForm):
     price_min = StringField('Price min')
     price_max = StringField('Price max')
-    conditions = [('New','New'), ('Used', 'Used'), ('Broken', 'Broken')]
+    conditions = [('', ''), ('New','New'), ('Used', 'Used'), ('Broken', 'Broken')]
     condition = SelectField('Condition', choices=conditions)
     submit = SubmitField('Submit')
 

@@ -1,13 +1,9 @@
 Todo:
 
-Listings filter
+1. On register and edit profile, verify email isn't taken
 
-Listing page add user and fix style
+2. New listing multiple images
 
-Edit profile add city state
+3. Make sure messaging works
 
-New listing multiple images
-
-On register and edit profile, verify email isn't taken
-
-Make sure messaging works
+4. Listing page - style it

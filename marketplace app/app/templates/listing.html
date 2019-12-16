@@ -1,12 +1,30 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    {% if listing.author == current_user %}
-        <p><a href="{{ url_for('delete_listing', id=listing.id) }}">Delete listing</a></p>
-    {% endif %}
-    <p class="font-weight-bold">{{ listing.title }}</p>
-    <img height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
-    <p>Condition: {{ listing.condition }}</p>
-    <p>${{ listing.price }}</p>
-    <pre>{{ listing.body }}</pre>
+    <div class="col-8 listing-container">
+        {% if listing.author == current_user %}
+            <p><a href="{{ url_for('delete_listing', id=listing.id) }}">Delete listing</a></p>
+        {% endif %}
+        <p class="font-weight-bold">{{ listing.title }}</p>
+        <img height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
+        <p>Condition: {{ listing.condition }}</p>
+        <p>${{ listing.price }}</p>
+        <pre>{{ listing.body }}</pre>
+    </div>
+    <div class="col-4 listing-container">
+        <table>
+            <tbody>
+                <tr><p><u>Posted by:</u></p></tr>
+                <tr>
+                    <td>
+                        <img width="60px" height="60px" class="profile-image mr-1" src="{{ user.avatar(128) }}"/>
+                    </td>
+                    <td>
+                    <h4>{{ user.name }}</h4>
+                    <p>📍 {{ user.city }}, {{ user.state }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

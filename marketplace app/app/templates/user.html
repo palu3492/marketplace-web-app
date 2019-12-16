@@ -36,9 +36,11 @@
         <p><a class="mt-1 mb-0" href="{{ url_for('message', id=user.id) }}">Message {{ user.name }}</a></p>
     {% endif %}
 
+    {% if listings %}
     <div class="title-container mt-3 mb-4">
         <h5 class="mt-3 mb-3">{{ user.name }}'s Listings</h5>
     </div>
+    {% endif %}
 
     {% include "_listings.html" %}
 {% endblock %}

@@ -15,6 +15,9 @@
 #filters > * {
     display: inline-block;
 }
+#filters input[type="text"] {
+    width: 80px;
+}
 #user-table td {
     display: inline-block;
 }
@@ -24,6 +27,7 @@
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     border-radius: 4px;
+    border: solid 1px #80808038;
 }
 .listing{
     /*min-width: 202px;*/
@@ -40,6 +44,14 @@
 }
 .listing-a:hover, .user-a:hover{
     color: #535353;
+}
+.listing-container{
+    display: inline-block;
+    float: left;
+    padding: 0;
+}
+.listing-container tr{
+    vertical-align: top;
 }
 .condition{
     font-weight: 700;

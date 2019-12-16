@@ -13,13 +13,24 @@ import os
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     form = FilterForm()
-    listings = Listing.query.order_by(Listing.timestamp.desc()).all()
+    if form.validate_on_submit():
+        listings = Listing.query
+        if form.condition.data:
+            listings = listings.filter(Listing.condition == form.condition.data)
+        if form.price_min.data:
+            listings = listings.filter(Listing.price >= float(form.price_min.data))
+        if form.price_max.data:
+            listings = listings.filter(Listing.price <= float(form.price_max.data))
+
+        listings = listings.order_by(Listing.timestamp.desc()).all()
+    else:
+        listings = Listing.query.order_by(Listing.timestamp.desc()).all()
     listings = listings + listings + listings
     images = {}
     users = {}
     for _listing in listings:
         images[_listing.id] = Image.query.filter_by(listing_id=_listing.id).first()
-        users[_listing.id] = User.query.filter_by(id=_listing.user_id).first()
+        users[_listing.id] = _listing.author
     return render_template("index.html", title='Listings', listings=listings, images=images, users=users, user_info=True, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -51,7 +62,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(name=form.name.data, email=form.email.data)
+        user = User(name=form.name.data, email=form.email.data, city=form.city.data, state=form.state.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -81,12 +92,16 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.email = form.email.data
+        current_user.state = form.state.data
+        current_user.city = form.city.data
         db.session.commit()
         flash('Profile updated')
         return redirect(url_for('user', id=current_user.id))
     elif request.method == 'GET':
         form.name.data = current_user.name
         form.email.data = current_user.email
+        form.state.data = current_user.state
+        form.city.data = current_user.city
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 @app.route('/new_listing', methods=['GET', 'POST'])
@@ -128,10 +143,10 @@ def new_listing():
 
 @app.route('/listing/<id>')
 def listing(id):
-    # user = User.query.filter_by(username=username).first_or_404()
     _listing = Listing.query.filter_by(id=id).first_or_404()
+    user = _listing.author
     image = Image.query.filter_by(listing_id=_listing.id).first()
-    return render_template('listing.html', listing=_listing, title='View Listing', image=image)
+    return render_template('listing.html', listing=_listing, title='View Listing', image=image, user=user)
 
 @app.route('/delete_listing/<id>')
 @login_required
