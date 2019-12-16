@@ -33,6 +33,7 @@
                                 <script>let myCity='{{ current_user.city }}', myState='{{ current_user.state }}';</script>
                                 <script>let otherCity='{{ user.city }}', otherState='{{ user.state }}';</script>
                                 <script>findDistance();</script>
+                                <p class="m-0"><a href="{{ url_for('message', id=user.id) }}">Send Message</a></p>
                             {% endif %}
                         </td>
                     </tr>
