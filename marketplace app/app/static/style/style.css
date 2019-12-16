@@ -53,6 +53,14 @@
 .listing-container tr{
     vertical-align: top;
 }
+.listing-tag{
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid #cecece;
+    background: #e7e7e7;
+    color: black;
+    border-radius: 0.5em;
+}
 .condition{
     font-weight: 700;
 }

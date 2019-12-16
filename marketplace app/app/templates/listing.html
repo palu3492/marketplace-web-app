@@ -6,9 +6,9 @@
             <p><a href="{{ url_for('delete_listing', id=listing.id) }}">Delete listing</a></p>
         {% endif %}
         <p class="font-weight-bold">{{ listing.title }}</p>
-        <img height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
-        <p>Condition: {{ listing.condition }}</p>
-        <p>${{ listing.price }}</p>
+        <p class="listing-tag">{{ listing.condition }}</p>
+        <p class="listing-tag">${{ listing.price }}</p>
+        <img style="display: block;" height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
         <pre>{{ listing.body }}</pre>
     </div>
     <div class="col-4 listing-container">
