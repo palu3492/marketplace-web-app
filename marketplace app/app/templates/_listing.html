@@ -17,7 +17,7 @@
             <a class="user-a" href="{{ url_for('user', id=users[listing.id].id) }}">
                 <div class="user-info pt-1 mb-1 mt-2">
                     <img height="40" width="auto" src="{{ users[listing.id].avatar(40) }}"/>
-                    <p>{{ users[listing.id].name }}</p>
+                    <p class="ml-1">{{ users[listing.id].name }}</p>
                 </div>
             </a>
         {% endif %}
