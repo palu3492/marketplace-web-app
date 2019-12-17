@@ -1,12 +1,13 @@
-# Final Project
-Flask web app for CSE400 final project.
+# CSCI 4131 Final Project
+Flask web app for CSCI 4131 final project.
 
 ## Project Details
 1. **Project Type:** Plan A
 2. **Group Member Name**: Aaron Eul
-3. **Link to live Application**: 
-4. **Link to Github Code Repository**: 
+3. **Link to live Application**: https://final-project-eul-4131.herokuapp.com/
+4. **Link to Github Code Repository**: https://github.com/Aeul/final-project-eul-4131
 5. **List of Technologies/API's Used**:
+
     * Flask, Flask Login, Flask Mail, WTForms, Flask Migrate, Flask Moment
     * Bootstrap
     * SQLite
@@ -16,21 +17,23 @@ Flask web app for CSE400 final project.
         * https://nominatim.org/release-docs/develop/api/Overview/
     * Google Maps Geometry Library - to compute distances between latitudes and longitudes
         * https://developers.google.com/maps/documentation/javascript/reference/geometry
+
 6. **Detailed Description of the project**:
 
-A fully functioning and feature-packed marketplace app that connects buyers and sellers together.
-Users can list products for sale and browse other user's listings. Each user has their own profile page
-that displays information about them and a link to contact them.
-On the home page, all the listings on the site are shown and they can
-be filtered using the filtering options. A preview of each listing is shown along with who created the
-listing. Listing pages show more information, they have a larger image and a full description of the listed
-product. Also, they show who created the listing and what city that person lives in.
-User profiles show each user's personal listings and a map showing where they live. They also have
-an edit profile button that lets them change their name, email, or location. Users can favorite listings
-and those listings will show up on their profiles. If a user wants to get in contact with another user
-they can send them a message which will send an email to that user's email on file.
+    A fully functioning and feature-packed marketplace app that connects buyers and sellers together.
+    Users can list products for sale and browse other user's listings. Each user has their own profile page
+    that displays information about them and a link to contact them.
+    On the home page, all the listings on the site are shown and they can
+    be filtered using the filtering options. A preview of each listing is shown along with who created the
+    listing. Listing pages show more information, they have a larger image and a full description of the listed
+    product. Also, they show who created the listing and what city that person lives in.
+    User profiles show each user's personal listings and a map showing where they live. They also have
+    an edit profile button that lets them change their name, email, or location. Users can favorite listings
+    and those listings will show up on their profiles. If a user wants to get in contact with another user
+    they can send them a message which will send an email to that user's email on file.
 
 7. **List of Controllers and their short description**:
+
     * index
     * listing
     * new_listing
@@ -42,6 +45,7 @@ they can send them a message which will send an email to that user's email on fi
     * logout
     * register
     * favorite
+
 8. **List of Views and their short description**:
 
     There is basically a view for each controller.
@@ -73,7 +77,9 @@ they can send them a message which will send an email to that user's email on fi
     * logout.html - This page simply logs out the logged in user and redirects them to the home page.
     * register.html - A form for registering an account. A new user enters their name, email, city, and state
     to create an account. A POST request will ask the server to add the new user to the database.
+    
 9. **List of Tables, their Structure and short description**:
+
     * User table - Holds all user data from when a user registers and this data can be changed on the edit profile page.
         * Columns: id, name, email, password_hash (plain-text password hashed for security), last_seen, city, state
     * Listing table - Holds data about listings for sale on site and associates them with author of listing.
@@ -83,6 +89,7 @@ they can send them a message which will send an email to that user's email on fi
         src (where it's located on server), listing_id (listing it's associated with)
     * Favorite table - Holds all favorited listings that users have favorited.
         * Columns: id, listing_id, user_id
+
 10. **References/Resources**:
 
     https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
