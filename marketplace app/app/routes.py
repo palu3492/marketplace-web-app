@@ -25,7 +25,7 @@ def index():
         listings = listings.order_by(Listing.timestamp.desc()).all()
     else:
         listings = Listing.query.order_by(Listing.timestamp.desc()).all()
-    listings = listings + listings + listings
+    listings = listings
     images = {}
     users = {}
     for _listing in listings:
