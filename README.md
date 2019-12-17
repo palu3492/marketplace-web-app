@@ -28,6 +28,7 @@ Flask web app for CSE400 final project.
     * login
     * logout
     * register
+    * favorite
 8. **List of Views and their short description**:
 
     There is basically a view for each controller.
@@ -67,6 +68,8 @@ Flask web app for CSE400 final project.
     * Image table - Holds image locations for listings, which can have multiple images.
         * Columns: id, name, extension (.png, .jpg), instance (occurrence count of image name),
         src (where it's located on server), listing_id (listing it's associated with)
+    * Favorite table - Holds all favorited listings that users have favorited.
+        * Columns: id, listing_id, user_id
 10. **References/Resources**:
 
     https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
@@ -86,6 +89,8 @@ Flask web app for CSE400 final project.
     
     https://flask-migrate.readthedocs.io/en/latest/
     For learning how to use Flask Migrate.
+    
+    https://pythonhosted.org/Flask-Mail/ To learn about Flask Mail.
 
     https://exploreflask.com/en/latest/views.html#view-decorators
     For understanding routing.

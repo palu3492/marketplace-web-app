@@ -70,6 +70,13 @@
     color: black;
     border-radius: 0.5em;
 }
+.favorite{
+    padding: 5px;
+    border: 1px solid #cecece;
+    color: black;
+    border-radius: 0.5em;
+    margin-right: 0.5em;
+}
 .condition{
     font-weight: 700;
 }

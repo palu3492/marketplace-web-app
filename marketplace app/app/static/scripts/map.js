@@ -16,10 +16,19 @@ function createLeafletMap(){
 
     getCityLatLng(state, city)
         .then(data => {
-            let latLng = [data[0].lat, data[0].lon];
-            map.panTo(latLng);
-            let popup = L.popup({closeOnClick: false, autoClose: false, closeButton: false, keepInView: true}).setContent(city+', '+state);
-            L.marker(latLng).bindPopup(popup).addTo(map).openPopup();
+            if(data[0] && data[0].lat && data[0].lon) {
+                let latLng = [data[0].lat, data[0].lon];
+                map.panTo(latLng);
+                let popup = L.popup({
+                    closeOnClick: false,
+                    autoClose: false,
+                    closeButton: false,
+                    keepInView: true
+                }).setContent(city + ', ' + state);
+                L.marker(latLng).bindPopup(popup).addTo(map).openPopup();
+            } else {
+                $('#map').hide()
+            }
         });
 }
 
@@ -42,8 +51,8 @@ function findDistance(){
         });
     Promise.all([p1, p2])
         .then(() => {
-            let distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng,otherLatLng,3956);
-            let miles = parseInt(distance * 1609.34);
+            let distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng,otherLatLng);
+            let miles = parseInt(distance * 0.000621371);
             if(miles) {
                 let text = miles + ' miles away';
                 $('#miles-away').text(text)

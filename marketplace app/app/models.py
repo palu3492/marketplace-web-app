@@ -45,3 +45,9 @@ class Image(db.Model):
     instance = db.Column(db.Integer)
     src = db.Column(db.String(100))
     listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'))
+
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+

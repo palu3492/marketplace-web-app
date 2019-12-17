@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, ListingForm, MessageForm, FilterForm
-from app.models import User, Listing, Image
+from app.models import User, Listing, Image, Favorite
 from app.email import send_email
 from werkzeug import secure_filename
 from werkzeug.urls import url_parse
@@ -74,10 +74,16 @@ def register():
 def user(id):
     _user = User.query.filter_by(id=id).first_or_404()
     listings = Listing.query.filter_by(user_id=_user.id).order_by(Listing.timestamp.desc()).all()
+    favorite_listings = []
+    if _user == current_user:
+        favorites = Favorite.query.filter_by(user_id=current_user.id).all()
+        for fav in favorites:
+            _listing = Listing.query.filter_by(id=fav.listing_id).first()
+            favorite_listings.append(_listing)
     images = {}
     for _listing in listings:
         images[_listing.id] = Image.query.filter_by(listing_id=_listing.id).first()
-    return render_template('user.html', user=_user, listings=listings, images=images, title='View Profile', user_info=False)
+    return render_template('user.html', user=_user, listings=listings, images=images, title='View Profile', user_info=False, favorites=favorite_listings)
 
 @app.before_request
 def before_request():
@@ -162,16 +168,37 @@ def delete_listing(id):
         flash('You can only delete listings you authored')
         return redirect(url_for('listing', id=id))
 
-@app.route('/message/<id>')
+@app.route('/message/<id>', methods=['GET', 'POST'])
 @login_required
 def message(id):
     _user = User.query.filter_by(id=id).first_or_404()
     form = MessageForm()
     if form.validate_on_submit():
-        # subject, sender, recipients, text_body, html_body
-        subject = 'test subject'
-        recipient = 'honesa6392@topmail2.com'
-        send_email(subject, 'flasktestemail120@gmail.com', [recipient], 'test1', 'test2')
+        form_subject = form.subject.data
+        form_message = form.body.data
+        recipient = _user.email
+        _message = "<p>You've received a new message from <a href='"+app.config['HOST']+url_for('user', id=current_user.id)+"'>"+current_user.name+"</a> on Marketplace.</p>"
+        _message += '<p>Subject: '+form_subject+'</p>'
+        _message += '<p>Message: '+form_message+'</p>'
+        _message += '<p><a href="'+app.config['HOST']+url_for('message', id=current_user.id)+'">Reply to '+current_user.name+' on Marketplace</a></p>'
+        subject = "Message from "+current_user.name+" on Marketplace"
+        send_email(subject, 'flasktestemail120@gmail.com', [recipient], _message, _message)
         flash('Message sent')
-        return redirect(url_for('index'))
+        return redirect(url_for('user', id=id))
     return render_template('message.html', title='Send Message', form=form, user=_user, current_user=current_user)
+
+@app.route('/favorite/<id>')
+@login_required
+def favorite(id):
+    favorited = Favorite.query.filter_by(listing_id=id, user_id=current_user.id).first()
+    if not favorited:
+        fav = Favorite(
+            listing_id=id,
+            user_id=current_user.id
+        )
+        db.session.add(fav)
+        db.session.commit()
+        flash('Added to favorites')
+    else:
+        flash('Already in your favorites')
+    return redirect(url_for('listing', id=id))

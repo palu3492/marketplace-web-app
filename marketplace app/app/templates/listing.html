@@ -15,30 +15,37 @@
             <img style="display: block;" height="200" width="auto" src="../static/listing_images/{{ image.src }}"/>
             <pre>{{ listing.body }}</pre>
         </div>
-        <div class="col-4 listing-user py-2">
-            <table>
-                <tbody>
-                    <tr><td><p class="mb-1"><u>Posted by:</u></p></td></tr>
-                    <tr style="vertical-align: top;">
-                        <td>
-                            <img width="60px" height="60px" class="profile-image mr-1" src="{{ user.avatar(128) }}"/>
-                        </td>
-                        <td>
-                            <a href="{{ url_for('user', id=user.id) }}">
-                                <h4>{{ user.name }}</h4>
-                            </a>
-                            <p class="mb-0">📍 {{ user.city }}, {{ user.state }}</p>
-                            {% if current_user != user %}
-                                <p class="mb-0" id="miles-away"></p>
-                                <script>let myCity='{{ current_user.city }}', myState='{{ current_user.state }}';</script>
-                                <script>let otherCity='{{ user.city }}', otherState='{{ user.state }}';</script>
-                                <script>findDistance();</script>
-                                <p class="m-0"><a href="{{ url_for('message', id=user.id) }}">Send Message</a></p>
-                            {% endif %}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-4 px-0">
+            <div  class="listing-user py-2 px-3">
+                <table>
+                    <tbody>
+                        <tr><td><p class="mb-1"><u>Posted by:</u></p></td></tr>
+                        <tr style="vertical-align: top;">
+                            <td>
+                                <img width="60px" height="60px" class="profile-image mr-1" src="{{ user.avatar(128) }}"/>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('user', id=user.id) }}">
+                                    <h4>{{ user.name }}</h4>
+                                </a>
+                                <p class="mb-0">📍 {{ user.city }}, {{ user.state }}</p>
+                                {% if current_user != user and current_user.is_authenticated %}
+                                    <p class="mb-0" id="miles-away"></p>
+                                    <script>let myCity='{{ current_user.city }}', myState='{{ current_user.state }}';</script>
+                                    <script>let otherCity='{{ user.city }}', otherState='{{ user.state }}';</script>
+                                    <script>findDistance();</script>
+                                {% endif %}
+                                {% if current_user != user %}
+                                    <p class="m-0"><a href="{{ url_for('message', id=user.id) }}">Send Message</a></p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% if current_user.is_authenticated and listing.user_id != current_user.id %}
+                <p class="pt-4"><a href="{{ url_for('favorite', id=listing.id) }}">Add to my favorites</a></p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

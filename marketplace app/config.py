@@ -16,3 +16,5 @@ class Config(object):
 
     # flasktestemail120@gmail.com
     # Flaskfinal1!
+
+    HOST = 'http://localhost:5000'

@@ -34,10 +34,26 @@
             </td>
         </tr>
     </table>
-
+    {% if user == current_user and favorites %}
+    <div class="title-container mt-3 mb-4">
+        <h5 class="mt-3 mb-3">My Favorites</h5>
+    </div>
+    <div style="display: flex; flex-wrap: wrap;">
+        {% for favorite in favorites %}
+            <p class="favorite mb-1"><a href="{{ url_for('listing', id=favorite.id) }}">{{ favorite.title }}</a></p>
+        {% endfor %}
+    </div>
+    {% endif %}
     {% if listings %}
     <div class="title-container mt-3 mb-4">
-        <h5 class="mt-3 mb-3">{{ user.name }}'s Listings</h5>
+        <h5 class="mt-3 mb-3">
+            {% if user == current_user %}
+                My
+            {% else %}
+                {{ user.name }}'s
+            {% endif %}
+            Listings
+        </h5>
     </div>
     {% endif %}
 

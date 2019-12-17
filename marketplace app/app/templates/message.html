@@ -2,8 +2,10 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-    <p><b>Messaging <a href="{{ url_for('user', id=user.id) }}">{{ user.name }}</a></b></p>
-    <p>This message will include your name ({{ current_user.name }}) and your <a href="{{ url_for('user', id=current_user.id) }}">profile link</a>.</p>
-    <p>Include what listing you are interested in.</p>
-    {{ wtf.quick_form(form) }}
+    <div class="col-md-8 pl-0">
+        <p><b>Messaging <a href="{{ url_for('user', id=user.id) }}">{{ user.name }}</a></b></p>
+        <p>This message will include your name ({{ current_user.name }}) and your <a href="{{ url_for('user', id=current_user.id) }}">profile link</a>.</p>
+        <p>Include what listing you are interested in.</p>
+        {{ wtf.quick_form(form) }}
+    </div>
 {% endblock %}
