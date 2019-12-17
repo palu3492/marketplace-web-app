@@ -51,14 +51,14 @@ Flask web app for CSCI 4131 final project.
     * edit_profile - Fills in edit_profile.html, which is a form, with a user's current information which can then be
     changed by submitting the form and that POST request will update the database to the new user information.
     * message - Renders a form for sending messages to other users using message.html. A post request from the form 
-    will send an email using Gmail to the user that is defined by the URL parameter id.
-    * login - Render a form from login.html and after a user enters their correct email and password they will be
+    will send an email using Gmail to the user that is defined by the URL parameter 'id'.
+    * login - Renders a form from login.html and after a user enters their correct email and password they will be
     logged into the Flask user management system and then redirected to the home page.
-    * logout - Logs the user out from Flask user management.
+    * logout - Logs the user out from Flask user management system.
     * register - Renders a form from register.html and a POST request from that form will create a new user in the
     database using the information from the form.
     * favorite - Sends a GET request with the URL parameter of a listing that the current user wants to favorite,
-    the database will be updated associated that favorited listing to the current user.
+    the database will be updated, associating that favorited listing to the current user.
 
 8. **List of Views and their short description**:
     
@@ -75,7 +75,8 @@ Flask web app for CSCI 4131 final project.
     * new_listing.html - A form for creating a new listing. The user creating a listing inputs in the
     title, price, condition, description, and any images of the product they're selling. 
     * user.html - Displays all the information about a user: name, profile image, location, when they were online last,
-    link to message them, and a map showing their location. Also, all the listings they authored are shown.
+    link to message them, and a map showing their location. Also, all the listings they authored and their favorites
+    are shown.
     * edit_profile.html - A form for editing information about the logged-in user. A user can update their
     email, name, city, and state.
     * message.html - A form for sending a message to another user. Input a subject and message and an email
