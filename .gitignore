@@ -1,2 +1,4 @@
 
 .idea/
+other/
+__pycache__/
