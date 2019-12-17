@@ -7,7 +7,7 @@ Flask web app for CSE400 final project.
 3. **Link to live Application**: 
 4. **Link to Github Code Repository**: 
 5. **List of Technologies/API's Used**:
-    * Flask, Flask Login, Flask Mail, WTForms, Flask Migrate
+    * Flask, Flask Login, Flask Mail, WTForms, Flask Migrate, Flask Moment
     * Bootstrap
     * SQLite
     * jQuery - for updating DOM
@@ -17,6 +17,19 @@ Flask web app for CSE400 final project.
     * Google Maps Geometry Library - to compute distances between latitudes and longitudes
         * https://developers.google.com/maps/documentation/javascript/reference/geometry
 6. **Detailed Description of the project**:
+
+A fully functioning and feature-packed marketplace app that connects buyers and sellers together.
+Users can list products for sale and browse other user's listings. Each user has their own profile page
+that displays information about them and a link to contact them.
+On the home page, all the listings on the site are shown and they can
+be filtered using the filtering options. A preview of each listing is shown along with who created the
+listing. Listing pages show more information, they have a larger image and a full description of the listed
+product. Also, they show who created the listing and what city that person lives in.
+User profiles show each user's personal listings and a map showing where they live. They also have
+an edit profile button that lets them change their name, email, or location. Users can favorite listings
+and those listings will show up on their profiles. If a user wants to get in contact with another user
+they can send them a message which will send an email to that user's email on file.
+
 7. **List of Controllers and their short description**:
     * index
     * listing
