@@ -1,1 +1,1 @@
-web: flask start
+web: python -m flask run
