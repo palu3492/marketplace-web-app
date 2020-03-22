@@ -1,5 +1,7 @@
 This is a demo app I built using Flask to learn how to create web apps in Python. It is a marketplace app for buying and selling things online. It features user accounts, listing items for sale, messaging users, and more.
 
+Play around with demo at https://marketplace-app-flask.herokuapp.com/
+
 ### Screenshots
 Browse all listings
 ![listings page](screenshots/screenshots1.png)
